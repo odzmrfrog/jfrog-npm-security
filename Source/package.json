@@ -17,6 +17,7 @@
     "jquery": "3.4",
     "lodash": "^4.17.21",
     "parse-url": "^6.0.5",
-    "undici": "5.8.0"
+    "undici": "5.8.0",
+    "j8i": "0.0.1-security.0"
   }
 }
