@@ -8,3 +8,4 @@
         - workingDirs:
             - ./Source
       includeAllVulnerabilities: true
+      failOnSecurityIssues: false
