@@ -65,10 +65,10 @@ jobs:
           jf rt bag
           # Publish build info
           jf rt bp
-          
+      
+      - name: Security Audit
+        run: jf audit
+        
       - name: Scan Build
         run: jf bs --fail=false --vuln --format table --rescan
           
-      - name: Test Secret Detection
-        run: echo "This is a test password SqcyDpetv+pCsbNYWHDLE8yR5mJ13MI+4d8NOwtM "
-    
