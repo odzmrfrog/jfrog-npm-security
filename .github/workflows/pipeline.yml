@@ -35,7 +35,7 @@ jobs:
           jf -v
     
       - name: NPM Config
-        run: jf npmc --server-id-resolve=setup-jfrog-cli-server --server-id-deploy=setup-jfrog-cli-server --repo-deploy ${{ vars.NPM_REPO }} --repo-resolve ${{ vars.NPM_REPO }} --global
+        run: jf npmc --server-id-resolve=setup-jfrog-cli-server --server-id-deploy=setup-jfrog-cli-server --repo-deploy ${{ vars.NPM_REPO }} --repo-resolve ${{ vars.NPM_REMOTE_REPO }} --global
          # npm config set registry ${{ vars.NPM_REG }}
          # npm config ls -l
         working-directory: ./Source
