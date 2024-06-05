@@ -19,14 +19,23 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-        
+  
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         env:
           JF_URL: ${{ vars.JF_URL }}
-          JF_USER: ${{ vars.JF_USER }}
-          JF_PASSWORD: ${{ secrets.JF_PASS }}
-          SERVER_ID: setup-jfrog-cli-server
+        with:
+          oidc-provider-name: ohadz-gh 
+          oidc-audience: test-aud
+    
+        
+  #    - name: Setup JFrog CLI
+  #      uses: jfrog/setup-jfrog-cli@v3
+  #      env:
+  #        JF_URL: ${{ vars.JF_URL }}
+  #        JF_USER: ${{ vars.JF_USER }}
+  #        JF_PASSWORD: ${{ secrets.JF_PASS }}
+  #        SERVER_ID: setup-jfrog-cli-server
       
       - name: Test JFrog CLI
         run: |
