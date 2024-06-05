@@ -7,6 +7,7 @@ RUN apt update
 # added to ease demo for remote shell
 RUN apt-get install -y ncat
 # If you are building your code for production
+RUN npm install
 RUN npm ci
 EXPOSE 3000
 
