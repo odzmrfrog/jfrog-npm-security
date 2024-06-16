@@ -75,7 +75,7 @@ jobs:
         run: | 
           docker build --build-arg ARTIFACTORY_URL=${{ secrets.JF_NPM_URL }} \
                        --build-arg ARTIFACTORY_USERNAME=${{ secrets.JF_USERNAME }} \
-                       --build-arg ARTIFACTORY_API_KEY=${{ secrets.JF_PASS }} \
+                       --build-arg ARTIFACTORY_API_KEY=${{ secrets.JF_API_KEY }} \
                        -t ohadz-npm-project ./Source
       
       - name: Tag Docker Image
