@@ -1,4 +1,4 @@
-FROM node:18-bullseye
+FROM soleng.jfrog.io/ohadz-docker-remote/node:18-bullseye
 
 # Create app directory
 WORKDIR /usr/src/app
