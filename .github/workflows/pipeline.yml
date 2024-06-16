@@ -72,15 +72,16 @@ jobs:
         run: docker login ${{ vars.DOCKER_REG_SRV }} -u ${{ secrets.JF_USER }} -p ${{ secrets.JF_PASS }} 
         
       - name: Build Docker Image
-        env:
-          ARTIFACTORY_URL: ${{ secrets.JF_NPM_URL }}
-          ARTIFACTORY_USERNAME: ${{ secrets.JF_USERNAME }}
-          ARTIFACTORY_API_KEY: ${{ secrets.JF_API_KEY }}
-        run: |
-          docker build  -t ohadz-npm-project ./Source \
-                       --build-arg ARTIFACTORY_URL=${{ secrets.JF_NPM_URL }} \
-                       --build-arg ARTIFACTORY_USERNAME=${{ secrets.JF_USERNAME }} \
-                       --build-arg ARTIFACTORY_API_KEY=${{ secrets.JF_API_KEY }}
+        #env:
+        #  ARTIFACTORY_URL: ${{ secrets.JF_NPM_URL }}
+        #  ARTIFACTORY_USERNAME: ${{ secrets.JF_USERNAME }}
+        #  ARTIFACTORY_API_KEY: ${{ secrets.JF_API_KEY }}
+        run: docker build -t ohadz-npm-project ./Source 
+       # run: |
+       #   docker build  -t ohadz-npm-project ./Source \
+       #                --build-arg ARTIFACTORY_URL=${{ secrets.JF_NPM_URL }} \
+       #                --build-arg ARTIFACTORY_USERNAME=${{ secrets.JF_USERNAME }} \
+       #                --build-arg ARTIFACTORY_API_KEY=${{ secrets.JF_API_KEY }}
                       
       
       - name: Tag Docker Image
