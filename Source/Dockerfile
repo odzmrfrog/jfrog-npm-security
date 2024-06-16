@@ -10,7 +10,7 @@ RUN echo "registry=${{ secrets.JF_NPM_URL }}" > .npmrc
 RUN echo "always-auth=true" >> .npmrc
 RUN echo "username=$(cat encoded_credentials)" >> .npmrc
 RUN echo "password=$(cat encoded_credentials)" >> .npmrc
-RUN npm install --registry=registry=${{ secrets.JF_NPM_URL }}
+RUN npm install --registry=${{ secrets.JF_NPM_URL }}
 
 #RUN npm install --yes
 RUN npm ci
