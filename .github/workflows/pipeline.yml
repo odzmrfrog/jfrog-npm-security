@@ -77,10 +77,11 @@ jobs:
           ARTIFACTORY_USERNAME: ${{ secrets.JF_USERNAME }}
           ARTIFACTORY_API_KEY: ${{ secrets.JF_API_KEY }}
         run: |
-          docker build --build-arg ARTIFACTORY_URL=${{ secrets.JF_NPM_URL }} \
+          docker build  -t ohadz-npm-project ./Source \
+                       --build-arg ARTIFACTORY_URL=${{ secrets.JF_NPM_URL }} \
                        --build-arg ARTIFACTORY_USERNAME=${{ secrets.JF_USERNAME }} \
-                       --build-arg ARTIFACTORY_API_KEY=${{ secrets.JF_API_KEY }} \
-                       -t ohadz-npm-project ./Source
+                       --build-arg ARTIFACTORY_API_KEY=${{ secrets.JF_API_KEY }}
+                      
       
       - name: Tag Docker Image
         run: docker tag ohadz-npm-project:latest soleng.jfrog.io/ohadz-test-docker/ohadz-npm-project:latest
