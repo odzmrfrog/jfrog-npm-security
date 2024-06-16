@@ -15,13 +15,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
      
-           # Configure Docker Credential Helper
-      - name: Configure Docker Credential Helper
-        uses: docker/docker-credential-helpers@v0.8.2 # Adjust version as needed
-        with:
-          # Reference secrets for credentials
-          username: ${{ secrets.JF_USERNAME }}
-          password: ${{ secrets.JF_PASS }}  # Or token file path for token auth
+    # Configure Docker Credential Helper
+    #  - name: Configure Docker Credential Helper
+    #    uses: docker/docker-credential-helpers@v0.8.2 # Adjust version as needed
+    #    with:
+    #      # Reference secrets for credentials
+    #      username: ${{ secrets.JF_USERNAME }}
+    #      password: ${{ secrets.JF_PASS }}  # Or token file path for token auth
    
      #   with:
      #     sparse-checkout: |
@@ -67,13 +67,13 @@ jobs:
       - name: Install NPM Project
         run: jf npm install 
         working-directory: ./Source
-    
-      - name: Build Docker Image
-        run: docker build -t ohadz-npm-project ./Source
       
       - name: Login to Docker Enviroment
         run: docker login ${{ vars.DOCKER_REG_SRV }} -u ${{ secrets.JF_USER }} -p ${{ secrets.JF_PASS }} 
         
+      - name: Build Docker Image
+        run: docker build -t ohadz-npm-project ./Source
+      
       - name: Tag Docker Image
         run: docker tag ohadz-npm-project:latest soleng.jfrog.io/ohadz-test-docker/ohadz-npm-project:latest
         
