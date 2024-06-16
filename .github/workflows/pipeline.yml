@@ -14,6 +14,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+     
+           # Configure Docker Credential Helper
+      - name: Configure Docker Credential Helper
+        uses: docker/setup-credential-helper@v2  # Adjust version as needed
+        with:
+          # Reference secrets for credentials
+          username: ${{ secrets.JF_USERNAME }}
+          password: ${{ secrets.JF_PASS }}  # Or token file path for token auth
+   
      #   with:
      #     sparse-checkout: |
      #      .github
@@ -59,14 +68,6 @@ jobs:
         run: jf npm install 
         working-directory: ./Source
     
-      # Configure Docker Credential Helper
-      - name: Configure Docker Credential Helper
-        uses: docker/setup-credential-helper@v1  # Adjust version as needed
-        with:
-          # Reference secrets for credentials
-          username: ${{ secrets.JF_USERNAME }}
-          password: ${{ secrets.JF_PASS }}  # Or token file path for token auth
-
       - name: Build Docker Image
         run: docker build -t ohadz-npm-project ./Source
       
