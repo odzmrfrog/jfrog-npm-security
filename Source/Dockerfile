@@ -6,7 +6,6 @@ COPY package*.json ./
 
 # Configure npm to use Artifactory registry with placeholders for environment variables
 RUN echo "//${{ secrets.JF_USERNAME }}:${{ secrets.JF_PASS }}" | base64 -i | tr -d '\n' > encoded_credentials
-RUN echo "registry=${{ secrets.JF_NPM_URL }}"
 RUN echo "registry=" > .npmrc
 RUN echo "${{ secrets.JF_NPM_URL }}" >> .npmrc
 RUN echo "always-auth=true" >> .npmrc
