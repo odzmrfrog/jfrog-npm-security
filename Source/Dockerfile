@@ -5,11 +5,11 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Configure npm to use Artifactory registry with placeholders for environment variables
-RUN echo "//${{ secrets.JF_USERNAME }}:${{ secrets.JF_PASS }}" | base64 -i | tr -d '\n' > encoded_credentials && \
-    echo "registry=${{ secrets.JF_NPM_URL }}" > .npmrc && \
-    echo "always-auth=true" >> .npmrc && \
-    echo "username=$(cat encoded_credentials)" >> .npmrc && \
-    echo "password=$(cat encoded_credentials)" >> .npmrc
+RUN echo "//${{ secrets.JF_USERNAME }}:${{ secrets.JF_PASS }}" | base64 -i | tr -d '\n' > encoded_credentials
+RUN echo "registry=${{ secrets.JF_NPM_URL }}" > .npmrc
+RUN echo "always-auth=true" >> .npmrc
+RUN echo "username=$(cat encoded_credentials)" >> .npmrc
+RUN echo "password=$(cat encoded_credentials)" >> .npmrc
 RUN npm install --registry=${{ secrets.JF_NPM_URL }}
 
 #RUN npm install --yes
