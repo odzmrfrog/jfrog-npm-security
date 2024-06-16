@@ -14,8 +14,8 @@ RUN echo "registry=$ARTIFACTORY_URL" > ~/.npmrc \
     && echo "always-auth=true" >> ~/.npmrc
 
 
-RUN npm install --registry=artifactory/ohadz-test-npm
-#RUN npm install
+#RUN npm install --registry=artifactory/ohadz-test-npm
+RUN npm install
 RUN npm ci
 EXPOSE 3000
 
