@@ -75,7 +75,7 @@ jobs:
         env:
           ARTIFACTORY_URL: ${{ secrets.JF_NPM_URL }}
           ARTIFACTORY_USERNAME: ${{ secrets.JF_USERNAME }}
-          ARTIFACTORY_API_KEY: ${{ secrets.JF_PASS }}
+          ARTIFACTORY_API_KEY: ${{ secrets.JF_API_KEY }}
         run: |
           docker build --build-arg ARTIFACTORY_URL=${{ secrets.JF_NPM_URL }} \
                        --build-arg ARTIFACTORY_USERNAME=${{ secrets.JF_USERNAME }} \
