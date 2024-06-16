@@ -10,7 +10,7 @@ ARG ARTIFACTORY_USERNAME
 ARG ARTIFACTORY_API_KEY
 
 RUN echo "registry=$ARTIFACTORY_URL" > ~/.npmrc \
-    && echo "_auth=$(echo -n $ARTIFACTORY_USERNAME:$ARTIFACTORY_API_KEY | base64)" >> ~/.npmrc \
+    && echo ":_auth=$(echo -n $ARTIFACTORY_USERNAME:$ARTIFACTORY_API_KEY | base64)" >> ~/.npmrc \
     && echo "always-auth=true" >> ~/.npmrc
 
 
