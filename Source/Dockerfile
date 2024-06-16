@@ -5,18 +5,14 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Configure npm to use Artifactory registry with placeholders for environment variables
-ARG ARTIFACTORY_URL
-ARG ARTIFACTORY_USERNAME
-ARG ARTIFACTORY_API_KEY
+RUN echo "//${{ secrets.JF_USERNAME }}:${{ secrets.JF_PASS }}" | base64 -i | tr -d '\n' > encoded_credentials
+RUN echo "registry=${{ secrets.JF_NPM_URL }}" > .npmrc
+RUN echo "always-auth=true" >> .npmrc
+RUN echo "username=$(cat encoded_credentials)" >> .npmrc
+RUN echo "password=$(cat encoded_credentials)" >> .npmrc
+RUN npm install --registry=registry=${{ secrets.JF_NPM_URL }}
 
-ENV NPM_CONFIG_REGISTRY=$ARTIFACTORY_URL
-ENV NPM_CONFIG_TOKEN=$ARTIFACTORY_API_KEY
-
-RUN echo "//${NPM_CONFIG_REGISTRY}:_authToken="'"'${NPM_CONFIG_TOKEN}'"' > ${WORKDIR}/.npmrc
-RUN cat ${WORKDIR}/.npmrc
-RUN npm set registry $ARTIFACTORY_URL
-#RUN npm install --registry=artifactory/ohadz-test-npm
-RUN npm install --yes
+#RUN npm install --yes
 RUN npm ci
 EXPOSE 3000
 
