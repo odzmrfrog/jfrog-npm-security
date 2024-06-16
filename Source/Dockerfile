@@ -9,16 +9,11 @@ ARG ARTIFACTORY_URL
 ARG ARTIFACTORY_USERNAME
 ARG ARTIFACTORY_API_KEY
 
-ENV JF_URL=$ARTIFACTORY_URL
-ENV JF_TOKEN=$ARTIFACTORY_API_KEY
-ENV WORKDIR=/usr/src/app
-
-RUN echo "//${JF_URL}/:_authToken="'"'${JF_TOKEN}'"' > ${WORKDIR}/.npmrc
-
-#RUN echo "$ARTIFACTORY_URL":_auth="$ARTIFACTORY_API_KEY" > ${WORKDIR}/.npmrc
-#    && echo ":_auth=$(echo -n $ARTIFACTORY_USERNAME:$ARTIFACTORY_API_KEY | base64)" >> ~/.npmrc \
+ENV NPM_CONFIG_REGISTRY=$ARTIFACTORY_URL
+ENV NPM_CONFIG_PASSWORD=$ARTIFACTORY_API_KEY
 
 
+RUN npm set registry $ARTIFACTORY_URL
 #RUN npm install --registry=artifactory/ohadz-test-npm
 RUN npm install --yes
 RUN npm ci
