@@ -13,7 +13,7 @@ ENV NPM_CONFIG_REGISTRY=$ARTIFACTORY_URL
 ENV NPM_CONFIG_TOKEN=$ARTIFACTORY_API_KEY
 
 RUN echo "//${NPM_CONFIG_REGISTRY}:_authToken="'"'${NPM_CONFIG_TOKEN}'"' > ${WORKDIR}/.npmrc
-
+RUN cat ${WORKDIR}/.npmrc
 RUN npm set registry $ARTIFACTORY_URL
 #RUN npm install --registry=artifactory/ohadz-test-npm
 RUN npm install --yes
