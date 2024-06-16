@@ -8,7 +8,6 @@ COPY package*.json ./
 ARG ARTIFACTORY_URL
 ARG ARTIFACTORY_USERNAME
 ARG ARTIFACTORY_API_KEY
-ARG ARTIFACTORY_EMAIL
 
 RUN echo "registry=$ARTIFACTORY_URL" > ~/.npmrc \
     && echo "_auth=$(echo -n $ARTIFACTORY_USERNAME:$ARTIFACTORY_API_KEY | base64)" >> ~/.npmrc \
