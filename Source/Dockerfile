@@ -4,22 +4,20 @@ FROM soleng.jfrog.io/ohadz-docker-remote/node:18-bullseye
 WORKDIR /usr/src/app
 COPY package*.json ./
 
-RUN echo "## Configure Artifactory"  \
-  && echo "deb http://jfrog.bintray.com/stable/deb $(lsb_release -cs) main" > /etc/apt/sources.list.d/jfrog.list \
-  && apt-get update \
-  && apt-get install -y jfrog-artifactory-apt-plugin \
-  && artifactory_configure \
-    --url ${{ secrets.JF_URL }} \
-    --context artifactory \
-    --username ${{ secrets.JF_USER }} \
-    --password ${{ secrets.JF_PASS }} \
-  && echo "## Artifactory configured"
+# Configure npm to use Artifactory registry with placeholders for environment variables
+ARG ARTIFACTORY_URL
+ARG ARTIFACTORY_USERNAME
+ARG ARTIFACTORY_API_KEY
+ARG ARTIFACTORY_EMAIL
 
-# RUN apt update
-# added to ease demo for remote shell
-# RUN apt-get install -y ncat
-# If you are building your code for production
-RUN npm install --registry=artifactory/ohadz-test-npm
+RUN echo "registry=$ARTIFACTORY_URL" > ~/.npmrc \
+    && echo "_auth=$(echo -n $ARTIFACTORY_USERNAME:$ARTIFACTORY_API_KEY | base64)" >> ~/.npmrc \
+    && echo "email=$ARTIFACTORY_EMAIL" >> ~/.npmrc \
+    && echo "always-auth=true" >> ~/.npmrc
+
+
+# RUN npm install --registry=artifactory/ohadz-test-npm
+RUN npm install
 RUN npm ci
 EXPOSE 3000
 
