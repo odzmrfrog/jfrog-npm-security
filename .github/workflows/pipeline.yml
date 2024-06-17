@@ -70,9 +70,9 @@ jobs:
 
       - name: List Files
         run: ls
-      
+
       - name: Login to Docker Enviroment
-        run: docker login ${{ vars.DOCKER_REG_SRV }} -u ${{ secrets.JF_USER }} -p ${{ secrets.JF_PASS }} 
+        run: docker login ${{ vars.DOCKER_REG_SRV }} -u ${{ steps.Setup JFrog CLI.outputs.oidc-user }} -p ${{ steps.Setup JFrog CLI.outputs.oidc-token }}
         
       - name: Build Docker Image
         #env:
