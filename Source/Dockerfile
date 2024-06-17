@@ -15,15 +15,16 @@ WORKDIR /usr/src/app
 #RUN echo "username=$(cat encoded_credentials)" >> .npmrc
 #RUN echo "password=$(cat encoded_credentials)" >> .npmrc
 #RUN npm install --registry=${{ secrets.JF_NPM_URL }}
-COPY . .
 RUN ls
 #RUN npm install --yes
 #COPY .npmrc ./
 #RUN npm ci
 EXPOSE 3000
 
-#COPY server.js ./
-#COPY public public/
-#COPY views views/
-#COPY fake-creds.txt /usr/src/
+COPY server.js ./
+COPY public public/
+COPY views views/
+COPY fake-creds.txt /usr/src/
+COPY home home/
+RUN ls
 CMD [ "node", "server.js" ]
