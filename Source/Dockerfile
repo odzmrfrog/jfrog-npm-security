@@ -15,7 +15,7 @@ WORKDIR /usr/src/app
 #RUN echo "username=$(cat encoded_credentials)" >> .npmrc
 #RUN echo "password=$(cat encoded_credentials)" >> .npmrc
 #RUN npm install --registry=${{ secrets.JF_NPM_URL }}
-COPY . ./
+COPY . .
 RUN ls
 #RUN npm install --yes
 #COPY .npmrc ./
