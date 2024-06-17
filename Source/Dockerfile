@@ -6,8 +6,8 @@ COPY package*.json ./
 
 ARG JF_NPMRC
 
-RUN echo ${JF_NPMRC}
 RUN echo ${JF_NPMRC} > .npmrc
+RUN cat .npmrc
 # Configure npm to use Artifactory registry with placeholders for environment variables
 #RUN echo "${{ secrets.JF_USERNAME }}:${{ secrets.JF_PASS }}" | base64 -i | tr -d '\n' > encoded_credentials
 #RUN echo "registry=${{ secrets.JF_NPM_URL }}" >> .npmrc
