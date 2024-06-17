@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: 18.x
   
-      - name: Setup JFrog CLI
+      - name: Setup-JFrog-CLI
         uses: jfrog/setup-jfrog-cli@v4
         id: setup-cli
         env:
@@ -72,7 +72,7 @@ jobs:
         run: ls
 
       - name: Login to Docker Enviroment
-        run: docker login ${{ vars.DOCKER_REG_SRV }} -u ${{ steps.Setup JFrog CLI.outputs.oidc-user }} -p ${{ steps.Setup JFrog CLI.outputs.oidc-token }}
+        run: docker login ${{ vars.DOCKER_REG_SRV }} -u ${{ steps.Setup-JFrog-CLI.outputs.oidc-user }} -p ${{ steps.Setup-JFrog-CLI.outputs.oidc-token }}
         
       - name: Build Docker Image
         #env:
