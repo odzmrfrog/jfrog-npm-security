@@ -67,6 +67,9 @@ jobs:
       - name: Install NPM Project
         run: jf npm install 
         working-directory: ./Source
+
+      - name: List Files
+        run: ls
       
       - name: Login to Docker Enviroment
         run: docker login ${{ vars.DOCKER_REG_SRV }} -u ${{ secrets.JF_USER }} -p ${{ secrets.JF_PASS }} 
