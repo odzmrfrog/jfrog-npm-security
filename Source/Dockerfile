@@ -4,8 +4,9 @@ FROM soleng.jfrog.io/ohadz-docker-remote/node:18-bullseye
 WORKDIR /usr/src/app
 COPY package*.json ./
 
-RUN echo ${{ secrets.JF_NPMRC }}
-RUN echo ${{ secrets.JF_NPMRC }} > .npmrc
+ARG JF_NPMRC
+
+RUN echo ${JF_NPMRC} > .npmrc
 # Configure npm to use Artifactory registry with placeholders for environment variables
 #RUN echo "${{ secrets.JF_USERNAME }}:${{ secrets.JF_PASS }}" | base64 -i | tr -d '\n' > encoded_credentials
 #RUN echo "registry=${{ secrets.JF_NPM_URL }}" >> .npmrc
