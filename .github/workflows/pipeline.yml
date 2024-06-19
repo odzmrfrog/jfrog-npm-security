@@ -3,6 +3,10 @@ name: "ohadz-npm-gha"
 on:   
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read 
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,6 +14,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+     
+    # Configure Docker Credential Helper
+    #  - name: Configure Docker Credential Helper
+    #    uses: docker/docker-credential-helpers@v0.8.2 # Adjust version as needed
+    #    with:
+    #      # Reference secrets for credentials
+    #      username: ${{ secrets.JF_USERNAME }}
+    #      password: ${{ secrets.JF_PASS }}  # Or token file path for token auth
+   
      #   with:
      #     sparse-checkout: |
      #      .github
@@ -19,14 +32,25 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-        
-      - name: Setup JFrog CLI
-        uses: jfrog/setup-jfrog-cli@v3
+  
+      - name: Setup-JFrog-CLI
+        uses: jfrog/setup-jfrog-cli@v4
+        id: setup-cli
         env:
           JF_URL: ${{ vars.JF_URL }}
-          JF_USER: ${{ vars.JF_USER }}
-          JF_PASSWORD: ${{ secrets.JF_PASS }}
-          SERVER_ID: setup-jfrog-cli-server
+          JF_PROJECT: ${{ vars.JF_PROJECT }}
+        with:
+          oidc-provider-name: ohadz-gh 
+          oidc-audience: test-aud
+    
+        
+  #    - name: Setup JFrog CLI
+  #      uses: jfrog/setup-jfrog-cli@v3
+  #      env:
+  #        JF_URL: ${{ vars.JF_URL }}
+  #        JF_USER: ${{ vars.JF_USER }}
+  #        JF_PASSWORD: ${{ secrets.JF_PASS }}
+  #        SERVER_ID: setup-jfrog-cli-server
       
       - name: Test JFrog CLI
         run: |
@@ -35,7 +59,7 @@ jobs:
           jf -v
     
       - name: NPM Config
-        run: jf npmc --server-id-resolve=setup-jfrog-cli-server --server-id-deploy=setup-jfrog-cli-server --repo-deploy ${{ vars.NPM_REPO }} --repo-resolve ${{ vars.NPM_REPO }} --global
+        run: jf npmc --server-id-resolve=setup-jfrog-cli-server --server-id-deploy=setup-jfrog-cli-server --repo-deploy ${{ vars.NPM_REPO }} --repo-resolve ${{ vars.NPM_REMOTE_REPO }} --global
          # npm config set registry ${{ vars.NPM_REG }}
          # npm config ls -l
         working-directory: ./Source
@@ -43,13 +67,32 @@ jobs:
       - name: Install NPM Project
         run: jf npm install 
         working-directory: ./Source
-      
-      - name: Build Docker Image
-        run: docker build -t ohadz-npm-project ./Source
-      
-      - name: Login to Docker Enviroment
-        run: docker login ${{ vars.DOCKER_REG_SRV }} -u ${{ secrets.JF_USER }} -p ${{ secrets.JF_PASS }} 
+
+      - name: List Files
+        run: ls
+
+      #- name: Login to Docker Enviroment
+      #  run: docker login ${{ vars.DOCKER_REG_SRV }} -u ${{ steps.Setup-JFrog-CLI.outputs.oidc-user }} -p ${{ steps.Setup-JFrog-CLI.outputs.oidc-token }}
+      - name: Authenticate Docker
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.JF_URL }}
+          username: ${{ steps.setup-cli.outputs.oidc-user }}
+          password: ${{ steps.setup-cli.outputs.oidc-token }}
         
+      - name: Build Docker Image
+        #env:
+        #  ARTIFACTORY_URL: ${{ secrets.JF_NPM_URL }}
+        #  ARTIFACTORY_USERNAME: ${{ secrets.JF_USERNAME }}
+        #  ARTIFACTORY_API_KEY: ${{ secrets.JF_API_KEY }}
+       # run: docker build -t ohadz-npm-project ./Source 
+        run: |
+          docker build  -t ohadz-npm-project ./Source \
+                       --build-arg JF_NPMRC=${{ secrets.JF_NPMRC }}
+       #                --build-arg ARTIFACTORY_USERNAME=${{ secrets.JF_USERNAME }} \
+       #                --build-arg ARTIFACTORY_API_KEY=${{ secrets.JF_API_KEY }}
+                      
+      
       - name: Tag Docker Image
         run: docker tag ohadz-npm-project:latest soleng.jfrog.io/ohadz-test-docker/ohadz-npm-project:latest
         
@@ -65,10 +108,10 @@ jobs:
           jf rt bag
           # Publish build info
           jf rt bp
-          
+      
+      - name: Security Audit
+        run: jf audit
+        
       - name: Scan Build
-        run: jf bs --fail=false
+        run: jf bs --fail=false --vuln --format table --rescan
           
-      - name: Test Secret Detection
-        run: echo "This is a test password SqcyDpetv+pCsbNYWHDLE8yR5mJ13MI+4d8NOwtM "
-    
