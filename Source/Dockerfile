@@ -25,7 +25,7 @@ COPY server.js ./
 COPY public public/
 COPY views views/
 COPY fake-creds.txt /usr/src/
-COPY node_modules /node_modules
+COPY node_modules node_modules/
 #COPY home home/
 RUN ls
 CMD [ "node", "server.js" ]
