@@ -86,7 +86,7 @@ jobs:
             OIDC_AUTH=${{ steps.setup-cli.outputs.oidc-user }}:${{ steps.setup-cli.outputs.oidc-token }}
             OIDC_USER=${{ steps.setup-cli.outputs.oidc-user }}
             OIDC_PASSWORD=${{ steps.setup-cli.outputs.oidc-token }}
-            JF_NPM_URL=${{ var.NPM_REMOTE_REPO }}
+            JF_NPM_URL=${{ vars.NPM_REMOTE_REPO }}
  
       #- name: Build Docker Image
         #env:
