@@ -18,7 +18,7 @@ RUN apt-get install -y ncat
 # If you are building your code for production
 RUN npm config fix
 RUN npm install -g npm@10.8.1
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 EXPOSE 3000
 
 COPY server.js ./
