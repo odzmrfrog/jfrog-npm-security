@@ -3,7 +3,12 @@ FROM soleng.jfrog.io/ohadz-docker-remote/node:18-bullseye
 ARG JF_URL
 ARG OIDC_USER
 ARG OIDC_PASSWORD
+ARG OIDC_AUTH
 ARG JF_NPM_URL
+# Create .npmrc in the image
+RUN echo "registry=${JF_NPM_URL}" > .npmrc && \
+    echo "_auth=${OIDC_AUTH}" >> .npmrc && \
+    echo "always-auth=true" >> .npmrc
 # Create app directory
 WORKDIR /usr/src/app
 COPY package*.json ./
