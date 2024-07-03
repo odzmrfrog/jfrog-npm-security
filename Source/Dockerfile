@@ -17,6 +17,7 @@ RUN apt update
 RUN apt-get install -y ncat
 # If you are building your code for production
 RUN npm config fix
+RUN cat .npmrc
 RUN npm install -g npm@10.8.1
 RUN npm ci --omit=dev
 EXPOSE 3000
