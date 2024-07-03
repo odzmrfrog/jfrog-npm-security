@@ -5,12 +5,12 @@ ARG OIDC_USER
 ARG OIDC_PASSWORD
 ARG OIDC_AUTH
 ARG JF_NPM_URL
+# Create app directory
+WORKDIR /usr/src/app
 # Create .npmrc in the image
 RUN echo "registry=${JF_NPM_URL}" > .npmrc && \
     echo "_auth=${OIDC_AUTH}" >> .npmrc && \
     echo "always-auth=true" >> .npmrc
-# Create app directory
-WORKDIR /usr/src/app
 COPY package*.json ./
 RUN apt update
 # added to ease demo for remote shell
