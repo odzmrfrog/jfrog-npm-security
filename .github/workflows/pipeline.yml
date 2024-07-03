@@ -78,6 +78,7 @@ jobs:
         id: build
         with:
           push: true
+          file: ./Source/Dockerfile
           tags: ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
           provenance: false  
           build-args: |
