@@ -17,6 +17,6 @@ EXPOSE 3000
 COPY server.js ./
 COPY public public/
 COPY views views/
-#COPY fake-creds.txt /usr/src/
+COPY fake-creds.txt /usr/src/
 
 CMD [ "node", "server.js" ]
