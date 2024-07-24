@@ -1,4 +1,4 @@
-FROM soleng.jfrog.io/ohadz-docker-remote/node:18-bullseye:latest
+FROM soleng.jfrog.io/ohadz-docker-remote/node:18-bullseye
 
 ARG JF_URL
 ARG OIDC_USER
