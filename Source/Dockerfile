@@ -20,9 +20,9 @@ COPY package*.json ./
 RUN ls
 #RUN cat .npmrc
 RUN cat package-lock.json
-RUN rm package-lock.json
+#RUN rm package-lock.json
 RUN npm install -g npm@10.8.1
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --loglevel verbose
 #RUN npm install
 EXPOSE 3000
 
