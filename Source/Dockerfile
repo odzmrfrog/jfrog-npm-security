@@ -19,7 +19,7 @@ COPY package*.json ./
 #RUN npm config fix
 #RUN cat .npmrc
 RUN npm install -g npm@10.8.1
-RUN npm ci --omit=dev
+RUN npm i --omit=dev
 #RUN npm install
 EXPOSE 3000
 
