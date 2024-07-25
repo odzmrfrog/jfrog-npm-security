@@ -21,11 +21,12 @@ RUN ls
 #RUN cat .npmrc
 RUN cat package-lock.json
 #RUN rm package-lock.json
-RUN npm install -g npm@10.8.1
-RUN npm ci --omit=dev --loglevel verbose
+#RUN npm install -g npm@10.8.1
+#RUN npm ci --omit=dev --loglevel verbose
 #RUN npm install
 EXPOSE 3000
 
+COPY node_modules node_modules/
 COPY server.js ./
 COPY public public/
 COPY views views/
