@@ -58,7 +58,6 @@ jobs:
       - name: Install NPM Project
         run: |
           jf npm install --loglevel verbose
-          cat "/home/runner/.npm/_logs/2024-07-25T*.log"
           cat /home/runner/.npm/_logs/2024-07-25T*.log
         working-directory: ./Source
       
