@@ -19,6 +19,7 @@ COPY package*.json ./
 #RUN npm config fix
 RUN cat .npmrc
 RUN cat package-lock.json
+RUN rm package-lock.json
 RUN npm install -g npm@10.8.1
 RUN npm i --omit=dev
 #RUN npm install
