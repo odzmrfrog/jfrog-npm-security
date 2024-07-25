@@ -126,4 +126,9 @@ jobs:
         
       - name: Scan Build
         run: jf bs --fail=false --vuln --format table --rescan
+
+      - name: Jfrog Scan
+        run: jf scan
+        working-directory: ./Source
+
           
