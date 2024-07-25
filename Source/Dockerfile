@@ -17,7 +17,8 @@ COPY package*.json ./
 #RUN apt-get install -y ncat
 # If you are building your code for production
 #RUN npm config fix
-RUN cat .npmrc
+RUN ls
+#RUN cat .npmrc
 RUN cat package-lock.json
 RUN rm package-lock.json
 RUN npm install -g npm@10.8.1
