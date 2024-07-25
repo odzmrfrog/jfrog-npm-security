@@ -22,7 +22,7 @@ RUN ls
 RUN cat package-lock.json
 RUN rm package-lock.json
 RUN npm install -g npm@10.8.1
-RUN npm i --omit=dev
+RUN npm ci --omit=dev
 #RUN npm install
 EXPOSE 3000
 
