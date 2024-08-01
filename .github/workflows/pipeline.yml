@@ -70,7 +70,7 @@ jobs:
           provenance: true  
 
       - name: Deploy Docker image
-        run: jf rt dp ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest ${{ env.DOCKER_REPO }} --build-name=${{ vars.BUILD_NAME }} --build-number=${{ github.run_number }}
+        run: jf docker push ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest ${{ env.DOCKER_REPO }} --build-name=${{ vars.BUILD_NAME }} --build-number=${{ github.run_number }}
 
       - name: Collect and Publish Build Info
         run: |
