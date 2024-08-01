@@ -71,10 +71,10 @@ jobs:
           provenance: true  
 
       - name: List Docker Images
-        run: docker images ls
+        run: docker image ls
       
       - name: List Docker Images
-        run: docker images ls
+        run: docker image ls
         working-directory: ./Source
 
       - name: Deploy Docker image
