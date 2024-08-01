@@ -64,7 +64,7 @@ jobs:
         id: build
         with:
           push: true
-          load: true
+         # load: true
           context: ./Source
           file: ./Source/Dockerfile
           tags: ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
@@ -72,6 +72,7 @@ jobs:
 
       - name: Deploy Docker image
         run: jf docker push ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest --build-name=${{ env.BUILD_NAME }} --build-number=${{ github.run_number }}
+        working-directory: ./Source
 
       - name: Collect and Publish Build Info
         run: |
