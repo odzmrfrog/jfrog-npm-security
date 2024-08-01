@@ -63,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v5
         id: build
         with:
-          push: true
+          push: false
          # load: true
           context: ./Source
           file: ./Source/Dockerfile
