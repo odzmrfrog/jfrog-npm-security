@@ -83,7 +83,7 @@ jobs:
           # Publish build info
           jf rt bp
       - name: Deploy Docker image
-        run: jf rt dp ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }} ${{ env.DOCKER_REPO }} --build-name=${{ var.BUILD_NAME }} --build-number=${{ github.run_number }}
+        run: jf rt dp ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }} ${{ env.DOCKER_REPO }} --build-name=${{ vars.BUILD_NAME }} --build-number=${{ github.run_number }}
 
       - name: Security Audit
         run: jf audit
