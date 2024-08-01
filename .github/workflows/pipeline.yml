@@ -67,7 +67,7 @@ jobs:
           context: ./Source
           file: ./Source/Dockerfile
           tags: ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
-          provenance: false  
+          provenance: true  
 
       - name: Deploy Docker image
         run: jf rt dp ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }} ${{ env.DOCKER_REPO }} --build-name=${{ vars.BUILD_NAME }} --build-number=${{ github.run_number }}
