@@ -77,40 +77,30 @@ jobs:
           username: ${{ steps.setup-cli.outputs.oidc-user }}
           password: ${{ steps.setup-cli.outputs.oidc-token }}
   
-      - name: Docker Build and Push
-        uses: docker/build-push-action@v5
-        id: build
-        with:
-          push: true
-          context: ./Source
-          file: ./Source/Dockerfile
-          tags: ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
-          provenance: false  
-          build-args: |
-            OIDC_AUTH=${{ vars.JF_USER }}:${{ secrets.JF_PASS }}
-            OIDC_USER=${{ steps.setup-cli.outputs.oidc-user }}
-            OIDC_PASSWORD=${{ steps.setup-cli.outputs.oidc-token }}
-            JF_NPM_URL=${{ vars.NPM_REMOTE_REG }}
+   #   - name: Docker Build and Push
+   #     uses: docker/build-push-action@v5
+   #     id: build
+   #     with:
+   #       push: true
+   #       context: ./Source
+   #       file: ./Source/Dockerfile
+   #       tags: ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+   #       provenance: false  
+   #       build-args: |
+   #         OIDC_AUTH=${{ vars.JF_USER }}:${{ secrets.JF_PASS }}
+   #         OIDC_USER=${{ steps.setup-cli.outputs.oidc-user }}
+   #         OIDC_PASSWORD=${{ steps.setup-cli.outputs.oidc-token }}
+   #         JF_NPM_URL=${{ vars.NPM_REMOTE_REG }}
  
-      #- name: Build Docker Image
-        #env:
-        #  ARTIFACTORY_URL: ${{ secrets.JF_NPM_URL }}
-        #  ARTIFACTORY_USERNAME: ${{ secrets.JF_USERNAME }}
-        #  ARTIFACTORY_API_KEY: ${{ secrets.JF_API_KEY }}
-       # run: docker build -t ohadz-npm-project ./Source 
-      #  run: |
-      #    docker build  -t ohadz-npm-project ./Source \
-      #                 --build-arg JF_NPMRC=${{ secrets.JF_NPMRC }}
-       #                --build-arg ARTIFACTORY_USERNAME=${{ secrets.JF_USERNAME }} \
-       #                --build-arg ARTIFACTORY_API_KEY=${{ secrets.JF_API_KEY }}
-                      
+      - name: Build Docker Image
+        run: docker build -t ${{ env.IMAGE_NAME }}:${{ github.run_number }} ./Source   
       
-    #  - name: Tag Docker Image
-    #    run: docker tag ohadz-npm-project:latest soleng.jfrog.io/ohadz-test-docker/ohadz-npm-project:latest
+      - name: Tag Docker Image
+        run: docker tag ${{ env.IMAGE_NAME }}:${{ github.run_number }} ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
         
-    #  - name: Push Docker Image to RT
-       #run: docker push $DOCKER_IMAGE_TAG
-    #    run: jf docker push soleng.jfrog.io/ohadz-test-docker/ohadz-npm-project:latest
+      - name: Push Docker Image to RT
+        run: docker push ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+       #run: jf docker push soleng.jfrog.io/ohadz-test-docker/ohadz-npm-project:latest
       
       - name: Collect and Publish Build Info
         run: |
