@@ -68,11 +68,6 @@ jobs:
           file: ./Source/Dockerfile
           tags: ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
           provenance: false  
-          build-args: |
-            OIDC_AUTH=${{ vars.JF_USER }}:${{ secrets.JF_PASS }}
-            OIDC_USER=${{ steps.setup-cli.outputs.oidc-user }}
-            OIDC_PASSWORD=${{ steps.setup-cli.outputs.oidc-token }}
-            JF_NPM_URL=${{ vars.NPM_REMOTE_REG }}
  
       - name: Collect and Publish Build Info
         run: |
