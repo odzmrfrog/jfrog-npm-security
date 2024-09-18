@@ -103,5 +103,5 @@ jobs:
       - name: Scan Build
         run: jf bs --fail=false --vuln --format table --rescan
 
-      - name: docker scan
-        run:  jf docker scan ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+   #   - name: docker scan
+   #     run:  jf docker scan ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
