@@ -50,7 +50,7 @@ jobs:
         working-directory: ./Source
       
       - name: NPM Publish
-        run: jf npm publish
+        run: jf npm publish --build-name --build-number
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
