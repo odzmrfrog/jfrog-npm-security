@@ -50,7 +50,7 @@ jobs:
         working-directory: ./Source
       
       - name: NPM Publish
-        run: jf npm publish
+        run: jf npm publish --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
         working-directory: ./Source
 
         
