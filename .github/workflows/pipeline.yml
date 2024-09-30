@@ -49,6 +49,9 @@ jobs:
         run: jf npm install --loglevel verbose
         working-directory: ./Source
       
+      - name: NPM Publish
+        run: jf npm publish
+        
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       
