@@ -46,7 +46,7 @@ jobs:
         working-directory: ./Source
         
       - name: Install NPM Project
-        run: jf npm install --loglevel verbose
+        run: jf npm install --loglevel verbose --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
         working-directory: ./Source
       
       - name: NPM Publish
@@ -100,15 +100,15 @@ jobs:
           # Collect VCS details from git and add them to the build
           jf rt bag
           # Collect Dependencies
-          jf rt bad
+          # jf rt bad
           # Publish build info
-          jf rt bp
+          jf rt bp --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
      
       - name: Security Audit
         run: jf audit
         
       - name: Scan Build
-        run: jf bs --fail=false --vuln --format table --rescan
+        run: jf bs --fail=false --vuln --format table --rescan --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
 
    #   - name: docker scan
    #     run:  jf docker scan ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
