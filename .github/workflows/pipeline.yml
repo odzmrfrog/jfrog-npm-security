@@ -46,11 +46,12 @@ jobs:
         working-directory: ./Source
         
       - name: Install NPM Project
-        run: jf npm install --loglevel verbose --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}} --legacy-peer-deps
+        run: jf npm install --loglevel verbose --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
         working-directory: ./Source
-      
+      - name: Show the log
+        run: cat /home/runner/.npm/_logs/*debug-0.log
       - name: NPM Publish
-        run: jf npm publish --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}} --legacy-peer-deps
+        run: jf npm publish --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}} 
         working-directory: ./Source
 
         
