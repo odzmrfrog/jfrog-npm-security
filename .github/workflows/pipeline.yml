@@ -101,7 +101,7 @@ jobs:
           # Collect VCS details from git and add them to the build
           jf rt bag
           # Collect Dependencies
-          # jf rt bad
+          jf rt bad Source/node_modules/
           # Publish build info
           jf rt bp ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}}
      
