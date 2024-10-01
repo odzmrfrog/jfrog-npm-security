@@ -102,7 +102,7 @@ jobs:
           # Collect Dependencies
           # jf rt bad
           # Publish build info
-          jf rt bp --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
+          jf rt bp ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}}
      
       - name: Security Audit
         run: jf audit
