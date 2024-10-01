@@ -46,7 +46,7 @@ jobs:
         working-directory: ./Source
         
       - name: Install NPM Project
-        run: jf npm install --loglevel verbose --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
+        run: jf npm install --loglevel=verbose --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
         working-directory: ./Source
       - name: Show the log
         run: cat /home/runner/.npm/_logs/*debug-0.log
@@ -100,8 +100,6 @@ jobs:
           jf rt bce
           # Collect VCS details from git and add them to the build
           jf rt bag
-          # Collect Dependencies
-          jf rt bad Source/node_modules/
           # Publish build info
           jf rt bp ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}}
      
