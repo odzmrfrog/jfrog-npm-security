@@ -106,12 +106,14 @@ jobs:
      
       - name: Security Audit
         run: jf audit --validate-secrets --vuln
-        
+        working-directory: ./Source
+
       - name: Scan Build
         run: jf bs --fail=false --vuln --format table --rescan ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}}
 
       - name: Curation Audit
         run: jf ca
+        working-directory: ./Source
 
    #   - name: docker scan
    #     run:  jf docker scan ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
