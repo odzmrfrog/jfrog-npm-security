@@ -105,7 +105,7 @@ jobs:
           jf rt bp ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}}
      
       - name: Security Audit
-        run: jf audit --vuln --without-contextual-analysis
+        run: jf audit --vuln --sca --sast --secrets --without-contextual-analysis
         working-directory: ./Source
 
       - name: Scan Build
