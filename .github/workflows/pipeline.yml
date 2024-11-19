@@ -109,7 +109,7 @@ jobs:
         working-directory: ./Source
 
       - name: Scan Build
-        run: jf bs --fail=false --vuln --format table --rescan ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}}
+        run: jf bs --fail=false --vuln --format table --rescan ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}} --watches 0hadWatch
 
       - name: Curation Audit
         run: jf ca
