@@ -1,4 +1,4 @@
-name: "ohadz-npm-gha"
+name: "ohadz-ejs-gha"
 
 on:   
   workflow_dispatch:
@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOCKER_REPO: 'ohadz-test-docker'
-      IMAGE_NAME: 'ohadz-npm-gha'
-      BUILD_NAME: 'ohadz-npm-gha'
+      IMAGE_NAME: 'ohadz-ejs-gha'
+      BUILD_NAME: 'ohadz-ejs-gha'
    
     steps:
       - name: Checkout
