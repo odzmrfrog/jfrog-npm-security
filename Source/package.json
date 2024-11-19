@@ -18,6 +18,9 @@
     "lodash": "^4.17.21",
     "parse-url": "^6.0.5",
     "undici": "5.8.0",
+    "extjs-gpl": "6.2.0",
+    "react": "^17.0.2",
+    "yaim": "0.0.1",
     "j8i": "0.0.1-security.0"
   }
 }
