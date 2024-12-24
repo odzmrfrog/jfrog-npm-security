@@ -51,9 +51,9 @@ jobs:
       - name: Show the log
         run: cat /home/runner/.npm/_logs/*debug-0.log
       
-      - name: NPM Publish
-        run: jf npm publish --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}} 
-        working-directory: ./Source
+   #   - name: NPM Publish
+   #     run: jf npm publish --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}} 
+   #     working-directory: ./Source
 
         
       - name: Set up Docker Buildx
@@ -119,7 +119,7 @@ jobs:
       - name: Promote build localy
         ## https://jfrog.com/help/r/jfrog-cli/promoting-a-build
         ## build promotion with includ dependencies, to copy the OSS depenencies to a local repostiory and adding build name and number as properties
-        run: jf rt bpr ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}} ${{ vars.NPM_REPO }} --include-dependencies=true --props="buildName=${{env.JFROG_CLI_BUILD_NAME}};buildNumber=${BUILD_NUMBER}' 
+        run: jf rt bpr ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}} ${{ vars.DOCKER_REPO }} --include-dependencies=true --props="buildName=${{env.JFROG_CLI_BUILD_NAME}};buildNumber=${BUILD_NUMBER}' 
             
         
       - name: Create Release Bundle v2
@@ -127,7 +127,7 @@ jobs:
         ## create a release bundle v2 based on properties using rest api, to include all oss dependencies as part of the build
         ## run: |
         ## curl --location 'https://soleng.jfrog.io/lifecycle/api/v2/release_bundle?async=false' --header 'Content-Type: application/json' --header 'X-JFrog-Signing-Key-Name: RBv2' --header 'Authorization: Bearer ${{ steps.setup-cli.outputs.oidc-token }}' --data-raw '{\"release_bundle_name\":\"ohadz-Create-RBv2-with-remote\",\"release_bundle_version\":\"${{env.JFROG_CLI_BUILD_NUMBER}}\",\"source_type\":\"aql\",\"source\":{\"aql\":\"items.find({       \"$and\": [         {           \"$or\": [             {               \"repo\": {                 \"$eq\": \"ohadz-test-npm-local\"               }             }           ]         },         {           \"$or\": [             {               \"@buildName\": \"SolEng-Maven-Build\"             },             {               \"@buildNumber\": \"${RELEASE_VERSION_NUMBER}\"             }           ]         }       ]     }).include(\"sha256\",     \"updated\",     \"modified_by\",     \"created\",     \"id\",     \"original_md5\",     \"depth\",     \"actual_sha1\",     \"property.value\",     \"modified\",     \"property.key\",     \"actual_md5\",     \"created_by\",     \"type\",     \"name\",     \"repo\",     \"original_sha1\",     \"size\",     \"path\")\"}}'
-        run: jf rt rbc --spec aql.json
+        run: jf rt rbc --spec=spec.json --signing-key=RBv2 --sync=true --spec-vars="SOURCE_REPO=${{ vars.DOCKER_REPO }};BUILD_NAME=${{env.JFROG_CLI_BUILD_NAME}};BUILD_VERSION_NUMBER=${{env.JFROG_CLI_BUILD_NUMBER}}" RB_${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}}
 
    #   - name: docker scan
    #     run:  jf docker scan ${{ vars.DOCKER_REG_SRV }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
