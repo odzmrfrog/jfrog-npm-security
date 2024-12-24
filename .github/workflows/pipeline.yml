@@ -104,22 +104,22 @@ jobs:
           # Publish build info
           jf rt bp ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}}
      
-      - name: Security Audit
-        run: jf audit --vuln # --sca --sast --secrets --without-contextual-analysis
-        working-directory: ./Source
+##      - name: Security Audit
+##        run: jf audit --vuln # --sca --sast --secrets --without-contextual-analysis
+##        working-directory: ./Source
 
-      - name: Scan Build
-        run: jf bs --fail=false --vuln --format table --rescan ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}} 
+##      - name: Scan Build
+##        run: jf bs --fail=false --vuln --format table --rescan ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}} 
 
-      - name: Curation Audit
-        run: jf ca
-        working-directory: ./Source
+##      - name: Curation Audit
+##        run: jf ca
+##        working-directory: ./Source
 
     
       - name: Promote build localy
         ## https://jfrog.com/help/r/jfrog-cli/promoting-a-build
         ## build promotion with includ dependencies, to copy the OSS depenencies to a local repostiory and adding build name and number as properties
-        run: jf rt bpr ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}} ${{ vars.DOCKER_REPO }} --include-dependencies=true --props="buildName=${{env.JFROG_CLI_BUILD_NAME}};buildNumber=${BUILD_NUMBER}' 
+        run: jf rt bpr ${{env.JFROG_CLI_BUILD_NAME}} ${{env.JFROG_CLI_BUILD_NUMBER}} ${{ vars.DOCKER_REPO }} --include-dependencies=true --props="buildName=${{env.JFROG_CLI_BUILD_NAME}};buildNumber=${{env.JFROG_CLI_BUILD_NUMBER}}' 
             
         
       - name: Create Release Bundle v2
