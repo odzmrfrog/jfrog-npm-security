@@ -1,6 +1,6 @@
 {
-  "name": "floor28_sample",
-  "version": "1.0.0",
+  "name": "JFrog ejs Demo",
+  "version": "1.0.1",
   "description": "",
   "main": "server.js",
   "scripts": {
