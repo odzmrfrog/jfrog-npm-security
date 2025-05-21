@@ -45,7 +45,7 @@ jobs:
         
       - name: Install NPM Project
         run: |
-          jf npm install --loglevel=verbose --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
+          jf npm ci --loglevel=verbose --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
           cat /home/runner/.npm/_logs/*debug-0.log
         working-directory: ./Source
     
