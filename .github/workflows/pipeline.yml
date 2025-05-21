@@ -40,7 +40,7 @@ jobs:
           jf -v
     
       - name: NPM Config
-        run: jf npmc --repo-deploy ${{ vars.NPM_REPO }} --repo-resolve ${{ vars.NPM_REMOTE_REPO }} --global
+        run: jf npmc --repo-deploy ${{ vars.NPM_REPO }} --repo-resolve ${{ vars.NPM_REPO }} --global
         working-directory: ./Source
         
       - name: Install NPM Project
