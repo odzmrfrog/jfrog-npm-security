@@ -1,6 +1,7 @@
 {
-  "name": "JFrog ejs Demo",
+  "name": "Ohad JFrog ejs Demo",
   "version": "1.0.1",
+
   "description": "",
   "main": "server.js",
   "scripts": {
