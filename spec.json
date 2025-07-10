@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "aql": {
+	"items.find": {
+ 	   "repo": "${SOURCE_REPO}",
+ 	   "type": "file",
+	   "@buildName": "${BUILD_NAME}",
+ 	   "@buildNumber": "${BUILD_VERSION_NUMBER}"
+      	}
+      }
+    }
+  ]
+}
+
