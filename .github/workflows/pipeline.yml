@@ -44,7 +44,7 @@ jobs:
         working-directory: ./Source
     
       - name: Test node installation
-        run: jf npm i node@18.20.8
+        run: jf npm i node@24.4.0
         working-directory: ./Source
         
       - name: Install NPM Project
