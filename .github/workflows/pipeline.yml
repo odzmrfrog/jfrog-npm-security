@@ -42,6 +42,10 @@ jobs:
       - name: NPM Config
         run: jf npmc --repo-deploy ${{ vars.NPM_REPO }} --repo-resolve ${{ vars.NPM_REPO }}
         working-directory: ./Source
+    
+      - name: Test node installation
+        run: jf npm i node@18.20.8
+        working-directory: ./Source
         
       - name: Install NPM Project
         run: jf npm i --loglevel=silly --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
