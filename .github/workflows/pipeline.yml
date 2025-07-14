@@ -44,7 +44,7 @@ jobs:
         working-directory: ./Source
         
       - name: Install NPM Project
-        run: jf npm i --loglevel=verbose --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
+        run: jf npm i --loglevel=silly --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
         working-directory: ./Source
     
    #   - name: Show the log
