@@ -46,8 +46,19 @@ jobs:
    #   - name: Test node installation
    #     run: jf npm i node@24.4.0
    #     working-directory: ./Source
-      - name: Cat npmrc
-        run: cat /Source/.npmrc
+      - name: Create .npmrc for Artifactory
+        run: |
+          # Go to the directory where package.json is located if it's not root
+          # For your case, it seems to be in 'Source/'
+          cd Source
+          echo "registry=https://solengeu.jfrog.io/artifactory/api/npm/ohadz-test-npm/" >> .npmrc
+          echo "//solengeu.jfrog.io/artifactory/api/npm/ohadz-test-npm/:_authToken=${{ env.ARTIFACTORY_NPM_TOKEN }}" >> .npmrc
+          echo "always-auth=true" >> .npmrc
+          cat .npmrc # Optional: Print .npmrc content for debugging (ensure token is masked in logs)
+        env:
+          # Ensure ARTIFACTORY_NPM_TOKEN is defined as a GitHub Actions secret
+          ARTIFACTORY_NPM_TOKEN: ${{ steps.setup-cli.outputs.oidc-token }}
+        working-directory: ./Source
 
       - name: Install NPM Project
         run: |
