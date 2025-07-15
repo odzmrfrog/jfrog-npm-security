@@ -23,7 +23,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24.4
-  
+      - name: Install dependencies
+        run: npm ci
+        
       - name: Setup-JFrog-CLI
         uses: jfrog/setup-jfrog-cli@v4
         id: setup-cli
