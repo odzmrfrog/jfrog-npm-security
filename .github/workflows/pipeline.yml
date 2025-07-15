@@ -48,13 +48,26 @@ jobs:
    #     working-directory: ./Source
       - name: Create .npmrc for Artifactory
         run: |
-          echo "registry=https://solengeu.jfrog.io/artifactory/api/npm/ohadz-test-npm/" >> .npmrc
-          echo "//solengeu.jfrog.io/artifactory/api/npm/ohadz-test-npm/:_authToken=${{ env.ARTIFACTORY_NPM_TOKEN }}" >> .npmrc
-          echo "always-auth=true" >> .npmrc
-          cat .npmrc # Optional: Print .npmrc content for debugging (ensure token is masked in logs)
+          
+          # Set the registry
+          npm config set registry "https://solengeu.jfrog.io/artifactory/api/npm/ohadz-test-npm/"
+
+          # Set the _authToken for token-based authentication (modern npm)
+          npm config set //solengeu.jfrog.io/artifactory/api/npm/ohadz-test-npm/:username=${{ steps.setup-cli.outputs.oidc-user }}
+          npm config set //solengeu.jfrog.io/artifactory/api/npm/ohadz-test-npm/:_password=${{ steps.setup-cli.outputs.oidc-token }}
+          
+          # Set the _auth for basic authentication (older scripts/compat). This is likely what node-bin-setup expects.
+          # You need to generate ARTIFACTORY_NPM_BASIC_AUTH_B64 as a new secret.
+          # npm config set "//solengeu.jfrog.io/artifactory/api/npm/ohadz-test-npm/:_auth" "${{ secrets.ARTIFACTORY_NPM_BASIC_AUTH_B64 }}"
+
+          # Always send auth headers
+          npm config set always-auth true
+
+          # Verify the .npmrc contents (secrets will be masked)
+          cat ~/.npmrc
         env:
-          # Ensure ARTIFACTORY_NPM_TOKEN is defined as a GitHub Actions secret
-          ARTIFACTORY_NPM_TOKEN: ${{ steps.setup-cli.outputs.oidc-token }}
+          ARTIFACTORY_NPM_TOKEN: ${{ secrets.ARTIFACTORY_NPM_TOKEN }}
+       
         working-directory: ./Source
 
       - name: Install NPM Project
