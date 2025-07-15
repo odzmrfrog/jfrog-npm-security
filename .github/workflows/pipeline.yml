@@ -60,9 +60,6 @@ jobs:
           # You need to generate ARTIFACTORY_NPM_BASIC_AUTH_B64 as a new secret.
           # npm config set "//solengeu.jfrog.io/artifactory/api/npm/ohadz-test-npm/:_auth" "${{ secrets.ARTIFACTORY_NPM_BASIC_AUTH_B64 }}"
 
-          # Always send auth headers
-          npm config set always-auth true
-
           # Verify the .npmrc contents (secrets will be masked)
           cat ~/.npmrc
         env:
