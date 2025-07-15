@@ -23,6 +23,7 @@
     "got": "12.6.1",
     "eslint": "8.45.0",
     "cors.js": "0.0.1-security",
+    "protobufjs": "^6.11.2",
     "vm2": "3.9.19"
   }
 }
