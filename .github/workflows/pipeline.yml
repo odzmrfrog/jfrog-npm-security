@@ -46,7 +46,9 @@ jobs:
    #   - name: Test node installation
    #     run: jf npm i node@24.4.0
    #     working-directory: ./Source
-        
+      - name: Cat npmrc
+        run: cat /Source/.npmrc
+
       - name: Install NPM Project
         run: |
           jf npm i --loglevel=silly --build-name ${{env.JFROG_CLI_BUILD_NAME}} --build-number ${{env.JFROG_CLI_BUILD_NUMBER}}
