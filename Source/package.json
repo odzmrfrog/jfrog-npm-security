@@ -24,6 +24,7 @@
     "eslint": "8.45.0",
     "cors.js": "0.0.1-security",
     "protobufjs": "^6.11.2",
+    "extjs-gpl": "6.2.0",
     "vm2": "3.9.19"
   }
 }
