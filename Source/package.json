@@ -25,6 +25,7 @@
     "cors.js": "0.0.1-security",
     "protobufjs": "^6.11.2",
     "extjs-gpl": "6.2.0",
-    "vm2": "3.9.19"
+    "vm2": "3.9.19",
+    "body-parser": "2.2.0"
   }
 }
