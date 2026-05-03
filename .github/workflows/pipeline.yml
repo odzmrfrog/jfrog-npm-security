@@ -18,6 +18,9 @@ jobs:
       BUILD_NAME: 'ohadz-ejs-gha'
    
     steps:
+      - name: Boost
+        uses: jfrog/boost@v0
+        
       - name: Checkout
         uses: actions/checkout@v4
 
